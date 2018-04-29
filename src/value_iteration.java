@@ -38,10 +38,20 @@ public class value_iteration {
         
         epochs = Integer.parseInt(args[4]);
         gamma = Double.parseDouble(args[5]);
+        long timeElapsed = 0;
         
         for(int e = 1; e <= epochs; e++) {
+            long startTime = System.nanoTime();
+            
             computeVI();
+            
+            long endTime = System.nanoTime();
+            System.out.println("Epoch done. Time elapsed: " + (endTime - startTime));
+            timeElapsed += (endTime - startTime);
+            AuxMethods.printMaze(maze);
+            System.out.println("-------------------------");
         }
+        System.out.println("Total running time of VI = " + timeElapsed);
         computeQ();
         
         AuxMethods.writeValues(args[1], maze);

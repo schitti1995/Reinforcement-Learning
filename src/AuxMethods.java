@@ -103,13 +103,12 @@ public class AuxMethods {
      * Prints the maze.
      */
     public static void printMaze(State[][] maze) {
-        for(State[] row : maze) {
-            for(State s : row) {
-                //System.out.print((s.isBlocked || s.isGoal || s.isStart) + " ");
-                System.out.print(s.value + " ");
+        for(int i = 0; i < maze.length; i++) {
+            for(int j = 0; j < maze[0].length; j++) {
+                System.out.println(i + " " + j + " " + maze[i][j].value + " ");
             }
-            System.out.println();
         }
+        System.out.println();
     }
 
     /**

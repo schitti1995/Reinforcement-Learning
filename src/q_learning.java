@@ -65,8 +65,11 @@ public class q_learning {
         //This is where we get our reward values and next states for our steps from.
         environment env = new environment(args[0]);
         
+        long totalTime = 0;
+        int totalSteps = 0;
         for(int e = 1; e <= episodes; e++) {
-          //Start from the starting state of the maze.
+            long startTime = System.nanoTime();
+            //Start from the starting state of the maze.
             env.reset();
             
             if(episode_length == 0)
@@ -74,13 +77,21 @@ public class q_learning {
             
             boolean isTerminal = qLearn(env);
             int length = 1;
+            totalSteps++;
             
             while(!isTerminal && length < episode_length) {
-                qLearn(env);
+                isTerminal = qLearn(env);
                 length++;
+                totalSteps++;
             }
+            long time = System.nanoTime();
+            totalTime += (time - startTime);
             updateValues();
         }
+        
+        System.out.println("Total time elapsed = " + totalTime);
+        System.out.println("Average number of steps = " + ((double)totalSteps/(double)episodes));
+        
         updateValues();
         AuxMethods.writeValues(args[1], maze);
         AuxMethods.writeQValues(args[2], maze);
